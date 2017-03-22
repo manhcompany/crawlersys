@@ -16,7 +16,7 @@ public class RedisCache implements Cache {
 
     @Override
     public void cacheUrl(String url, String uuid, int second) {
-        cacheUrl(RedisUtils.getUUIDByUrl_Key(url), uuid);
+        cacheUrl(url, uuid);
         RedisWriteClient.getInstance().getJedis().expire(RedisUtils.getUUIDByUrl_Key(url), second);
     }
 

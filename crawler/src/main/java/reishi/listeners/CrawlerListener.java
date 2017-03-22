@@ -27,14 +27,16 @@ public class CrawlerListener implements Listener{
                 HashSet<String> urls = result.getUrls();
                 System.out.println(message.getDomain());
                 // send urls to crawler queue
-                for (String url : urls) {
-                    CrawlerDomain crawlerDomain = message.getDomain();
-                    CrawlerQueueMessage<CrawlerResult> newCrawler = new CrawlerMessage(crawlerDomain, url);
-                    crawlerProducer.send("0", newCrawler);
+                if(urls != null && !urls.isEmpty()) {
+                    for (String url : urls) {
+                        CrawlerDomain crawlerDomain = message.getDomain();
+                        CrawlerQueueMessage<CrawlerResult> newCrawler = new CrawlerMessage(crawlerDomain, url);
+                        crawlerProducer.send("0", newCrawler);
+                    }
                 }
 
                 // send result to append file queue
-                if(result.withContent()) {
+                if(result.withContent() && result.getUrls() != null) {
                     FileQueueMessage fileContent = new FileAppendMessage(message.getDomain(), result);
                     fileProducer.send("0", fileContent);
                 }

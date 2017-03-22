@@ -31,9 +31,12 @@ public class FileAppendMessage implements FileQueueMessage {
     @Override
     public void writeToFile(String fileName) throws IOException {
         List<String> contents = new ArrayList<>();
-        contents.add(content.toFileString());
-        Path path = Paths.get(fileName);
-        Files.write(path, contents, UTF_8, CREATE, APPEND);
+        String contenString = content.toFileString();
+        if(!contenString.equals("-")) {
+            contents.add(contenString);
+            Path path = Paths.get(fileName);
+            Files.write(path, contents, UTF_8, CREATE, APPEND);
+        }
     }
 
     @Override

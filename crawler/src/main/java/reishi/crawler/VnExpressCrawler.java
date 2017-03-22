@@ -78,23 +78,30 @@ public class VnExpressCrawler implements Crawler {
         doc = Jsoup.parse(crawlerDoc);
         HashSet<String> urls = getUrls();
         if(isContentSite()) {
-            CrawlerResultWithContent crawlerResultWithContent = new CrawlerResultWithContent();
-            crawlerResultWithContent.setUrls(urls);
-            crawlerResultWithContent.setTitle(getTitle());
-            crawlerResultWithContent.setShortIntro(getShortIntro());
-            crawlerResultWithContent.setContent(getContent());
-            crawlerResultWithContent.setRelative(getRelative());
-            crawlerResultWithContent.setDateTime(getDateTime());
-            crawlerResultWithContent.setCategories(getCategories());
-            String uuid = UUID.randomUUID().toString();
-            crawlerResultWithContent.setUuid(uuid);
-            crawlerResultWithContent.setUrl(this.url);
-            cacheUrl(uuid);
-            return crawlerResultWithContent;
+            try {
+                CrawlerResultWithContent crawlerResultWithContent = new CrawlerResultWithContent();
+                crawlerResultWithContent.setUrls(urls);
+                crawlerResultWithContent.setTitle(getTitle());
+                crawlerResultWithContent.setShortIntro(getShortIntro());
+                crawlerResultWithContent.setContent(getContent());
+                crawlerResultWithContent.setRelative(getRelative());
+                crawlerResultWithContent.setDateTime(getDateTime());
+                crawlerResultWithContent.setCategories(getCategories());
+                String uuid = UUID.randomUUID().toString();
+                crawlerResultWithContent.setUuid(uuid);
+                crawlerResultWithContent.setUrl(this.url);
+                cacheUrl(uuid);
+                return crawlerResultWithContent;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new CrawlerResultWithContent();
+            }
         }
         else {
             CrawlerResultWithoutContent crawlerResultWithoutContent = new CrawlerResultWithoutContent();
             crawlerResultWithoutContent.setUrls(urls);
+            String uuid = UUID.randomUUID().toString();
+            cacheUrl(uuid);
             return crawlerResultWithoutContent;
         }
     }

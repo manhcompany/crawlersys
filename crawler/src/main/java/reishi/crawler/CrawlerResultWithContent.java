@@ -99,9 +99,22 @@ public class CrawlerResultWithContent implements KafkaMessage, FileContent, Craw
 
     @Override
     public String toFileString() {
-        String relativeString = String.join(",", relative);
-        String categoriesString = String.join(",", categories);
-        String result = String.format("%s\t%d\t%s\t%s\t%s\t%s\t%s", uuid, dateTime, title, shortIntro.replace("\t", " ").trim(), relativeString, categoriesString, content.replace("\n", " ").trim());
-        return result;
+        String relativeString = "-";
+        if(relative != null && !relative.isEmpty()) {
+            relativeString = String.join(",", relative);
+        }
+        String categoriesString = "-";
+        if(categories != null && !categories.isEmpty()) {
+             categoriesString = String.join(",", categories);
+        }
+        try {
+            String result = String.format("%s\t%d\t%s\t%s\t%s\t%s\t%s", uuid, dateTime, title, shortIntro.replace("\t", " ").trim(), relativeString, categoriesString, content.replace("\n", " ").trim());
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(this.url);
+        }
+
+        return "-";
     }
 }
