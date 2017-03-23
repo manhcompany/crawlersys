@@ -1,4 +1,4 @@
-package reishi.cache;
+package cache;
 
 import redis.clients.jedis.Jedis;
 

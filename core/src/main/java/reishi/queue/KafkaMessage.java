@@ -1,4 +1,4 @@
-package reishi.messages;
+package reishi.queue;
 
 import java.io.Serializable;
 

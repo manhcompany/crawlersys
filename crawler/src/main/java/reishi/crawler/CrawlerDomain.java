@@ -1,7 +1,5 @@
 package reishi.crawler;
 
-import reishi.utils.Serialize;
-
 /**
  *
  */
