@@ -1,4 +1,6 @@
-package reishi.messages;
+package reishi.queue.messages;
+
+import reishi.queue.messages.KafkaMessage;
 
 import java.io.IOException;
 

@@ -1,6 +1,8 @@
 package reishi.queue;
 
 import junit.framework.TestCase;
+import reishi.queue.kafka.RKafkaConsumer;
+import reishi.queue.messages.DemoMessage;
 
 import java.io.IOException;
 

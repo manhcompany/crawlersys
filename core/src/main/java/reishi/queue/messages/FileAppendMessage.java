@@ -1,6 +1,4 @@
-package reishi.messages;
-
-import reishi.crawler.CrawlerDomain;
+package reishi.queue.messages;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,9 +19,9 @@ import static java.nio.file.StandardOpenOption.CREATE;
  */
 public class FileAppendMessage implements FileQueueMessage {
     private FileContent content;
-    private CrawlerDomain domain;
+    private String domain;
 
-    public FileAppendMessage(CrawlerDomain domain, FileContent content) {
+    public FileAppendMessage(String domain, FileContent content) {
         this.domain = domain;
         this.content = content;
     }
@@ -43,6 +41,6 @@ public class FileAppendMessage implements FileQueueMessage {
     public String buildFileName() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
         String sdt = df.format(new Date(System.currentTimeMillis())) + ".tsv";
-        return String.format("%s-%s", domain.toString(), sdt);
+        return String.format("%s-%s", domain, sdt);
     }
 }

@@ -1,8 +1,9 @@
-package reishi.queue;
+package reishi.queue.kafka;
 
 import kafka.serializer.Encoder;
 import org.apache.kafka.common.serialization.Serializer;
-import reishi.cache.utils.Serialize;
+import reishi.queue.messages.KafkaMessage;
+import reishi.utils.Serialize;
 
 import java.io.IOException;
 import java.util.Map;

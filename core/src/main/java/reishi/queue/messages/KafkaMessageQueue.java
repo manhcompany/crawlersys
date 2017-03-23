@@ -1,4 +1,4 @@
-package reishi.queue;
+package reishi.queue.messages;
 
 /**
  *

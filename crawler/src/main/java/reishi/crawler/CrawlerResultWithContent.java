@@ -1,7 +1,7 @@
 package reishi.crawler;
 
-import reishi.messages.FileContent;
-import reishi.messages.KafkaMessage;
+import reishi.queue.messages.FileContent;
+import reishi.queue.messages.KafkaMessage;
 
 import java.util.HashSet;
 import java.util.List;

@@ -1,6 +1,8 @@
 package reishi.messages;
 
 import reishi.crawler.*;
+import reishi.queue.messages.KafkaMessage;
+import reishi.crawler.CrawlerDomain;
 
 import java.io.IOException;
 import java.io.Serializable;

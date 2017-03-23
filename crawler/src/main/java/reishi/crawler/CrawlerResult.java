@@ -1,6 +1,6 @@
 package reishi.crawler;
 
-import reishi.messages.FileContent;
+import reishi.queue.messages.FileContent;
 
 import java.util.HashSet;
 

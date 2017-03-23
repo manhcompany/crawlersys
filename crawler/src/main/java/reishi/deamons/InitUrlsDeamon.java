@@ -2,16 +2,15 @@ package reishi.deamons;
 
 import reishi.crawler.CrawlerDomain;
 import reishi.crawler.CrawlerResult;
-import reishi.crawler.CrawlerResultWithContent;
 import reishi.messages.CrawlerMessage;
 import reishi.messages.CrawlerQueueMessage;
-import reishi.queue.QueueName;
-import reishi.queue.RKafkaProducer;
+import reishi.queue.utils.QueueName;
+import reishi.queue.kafka.RKafkaProducer;
 
 import java.io.IOException;
 
 /**
- * Created by manhtt on 19/03/2017.
+ *
  */
 public class InitUrlsDeamon {
     public static void main(String[] args) throws IOException {

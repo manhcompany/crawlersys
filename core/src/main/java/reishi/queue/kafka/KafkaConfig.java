@@ -1,4 +1,4 @@
-package reishi.queue;
+package reishi.queue.kafka;
 
 /**
  * Created by manhtt on 16/03/2017.

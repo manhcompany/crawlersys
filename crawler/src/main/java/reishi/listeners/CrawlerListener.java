@@ -2,11 +2,12 @@ package reishi.listeners;
 
 import reishi.crawler.CrawlerDomain;
 import reishi.crawler.CrawlerResult;
-import reishi.crawler.CrawlerResultWithContent;
 import reishi.messages.*;
-import reishi.queue.QueueName;
-import reishi.queue.RKafkaConsumer;
-import reishi.queue.RKafkaProducer;
+import reishi.queue.messages.FileAppendMessage;
+import reishi.queue.messages.FileQueueMessage;
+import reishi.queue.utils.QueueName;
+import reishi.queue.kafka.RKafkaConsumer;
+import reishi.queue.kafka.RKafkaProducer;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -37,7 +38,7 @@ public class CrawlerListener implements Listener{
 
                 // send result to append file queue
                 if(result.withContent() && result.getUrls() != null) {
-                    FileQueueMessage fileContent = new FileAppendMessage(message.getDomain(), result);
+                    FileQueueMessage fileContent = new FileAppendMessage(message.getDomain().toString(), result);
                     fileProducer.send("0", fileContent);
                 }
             }

@@ -1,9 +1,9 @@
 package reishi.listeners;
 
 import reishi.crawler.WriteToFileConfig;
-import reishi.messages.FileQueueMessage;
-import reishi.queue.QueueName;
-import reishi.queue.RKafkaConsumer;
+import reishi.queue.messages.FileQueueMessage;
+import reishi.queue.utils.QueueName;
+import reishi.queue.kafka.RKafkaConsumer;
 
 import java.io.IOException;
 

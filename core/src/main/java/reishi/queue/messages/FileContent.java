@@ -1,4 +1,4 @@
-package reishi.messages;
+package reishi.queue.messages;
 
 /**
  * Created by manhtt on 18/03/2017.

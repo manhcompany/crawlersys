@@ -1,7 +1,7 @@
 package reishi.messages;
 
 import reishi.crawler.CrawlerDomain;
-import reishi.utils.Serialize;
+import reishi.crawler.CrawlerDomain;
 
 import java.io.IOException;
 
