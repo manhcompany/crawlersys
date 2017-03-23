@@ -1,0 +1,13 @@
+Metadata for crawler raw log data.
+
+Format: tsv
+
+Field   |   Type    |   Mean
+----------------------------
+0       |   String  |   uuid
+1       |   Long    |   timestamp
+2       |   String  |   title
+3       |   String  |   short introduction
+4       |   String  |   Relationship url, separate by ','
+5       |   String  |   Categories, separate by ','
+6       |   String  |   Content
