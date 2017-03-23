@@ -8,7 +8,7 @@ import reishi.queue.RKafkaConsumer;
 import java.io.IOException;
 
 /**
- * Created by manhtt on 18/03/2017.
+ *
  */
 public class WriteToFileListener implements Listener {
     private RKafkaConsumer<FileQueueMessage> fileQueueMessageRKafkaConsumer;
