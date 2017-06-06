@@ -41,6 +41,14 @@ public class CrawlerListener implements Listener{
                     FileQueueMessage fileContent = new FileAppendMessage(message.getDomain().toString(), result);
                     fileProducer.send("0", fileContent);
                 }
+
+                //send to backup redis
+                RedisBackupMessage redisBackup = message.getCacheBackup();
+                if(redisBackup != null) {
+                    FileQueueMessage redisBackupMessage =
+                            new FileAppendMessage("REDIS_" + message.getDomain().toString(), redisBackup);
+                    fileProducer.send("0", redisBackupMessage);
+                }
             }
         };
     }

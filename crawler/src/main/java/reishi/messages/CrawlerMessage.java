@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class CrawlerMessage implements CrawlerQueueMessage<CrawlerResult>, Serializable, KafkaMessage {
     private CrawlerDomain domain;
     private String url;
+    private Crawler crawler;
 
     public CrawlerMessage(CrawlerDomain domain, String url) {
         this.domain = domain;
@@ -22,7 +23,7 @@ public class CrawlerMessage implements CrawlerQueueMessage<CrawlerResult>, Seria
     @Override
     public CrawlerResult crawler() throws IOException {
         System.out.println(this.url);
-        Crawler crawler = CrawlerFactory.getCrawler(domain, url);
+        crawler = CrawlerFactory.getCrawler(domain, url);
         if(!crawler.isCrawled()) {
             return crawler.crawler();
         }
@@ -31,6 +32,11 @@ public class CrawlerMessage implements CrawlerQueueMessage<CrawlerResult>, Seria
 
     public CrawlerDomain getDomain() {
         return domain;
+    }
+
+    @Override
+    public RedisBackupMessage getCacheBackup() {
+        return crawler.getCacheBackup();
     }
 
     public String getUrl() {

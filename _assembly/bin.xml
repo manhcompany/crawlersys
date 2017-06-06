@@ -20,7 +20,7 @@
 
         <!-- BIN -->
         <fileSet>
-            <directory>${project.basedir}/bin</directory>
+            <directory>${project.basedir}/_bin</directory>
             <outputDirectory>/bin</outputDirectory>
             <includes>
                 <include>*.sh</include>
@@ -45,9 +45,25 @@
             </includes>
         </fileSet>
 
+        <!--<fileSet>-->
+            <!--<directory>${project.basedir}/core/target</directory>-->
+            <!--<outputDirectory>lib</outputDirectory>-->
+            <!--<includes>-->
+                <!--<include>*.jar</include>-->
+            <!--</includes>-->
+        <!--</fileSet>-->
+
+        <!--<fileSet>-->
+            <!--<directory>${project.basedir}/preprocess/target</directory>-->
+            <!--<outputDirectory>lib</outputDirectory>-->
+            <!--<includes>-->
+                <!--<include>*.jar</include>-->
+            <!--</includes>-->
+        <!--</fileSet>-->
+
         <!-- CONFIG -->
         <fileSet>
-            <directory>${project.basedir}/conf</directory>
+            <directory>${project.basedir}/_conf</directory>
             <outputDirectory>/conf</outputDirectory>
             <includes>
                 <include>*.*</include>

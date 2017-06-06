@@ -1,0 +1,17 @@
+package reishi.sparks;
+
+import junit.framework.TestCase;
+
+/**
+ * Created by manhtt on 24/03/2017.
+ */
+public class RawLogTest extends TestCase {
+    public void testWordSegment() throws Exception {
+        String line = "6fe68b25-472d-4427-aef3-414323e607c0\t1490014811757\tMua vé xe online trên Pay VnExpress\tNgười dùng có thể đặt chỗ, mua vé, thanh toán trực tuyến và trải nghiệm những dịch vụ tốt nhất của các hãng vận tải ngay trên Pay VnExpress.\t-\tKinh doanh ,Thương mại điện tử \tPay VnExpress vừa hợp tác với click1BUS cung cấp dịch vụ đặt chỗ, mua vé xe khách và thanh toán online. Người tiêu dùng có thể lựa chọn dịch vụ của Mai Linh Express, Sapa Shuttlebus, Sơn Nguyên, Hanhcafe, EcoSapa, Vũ Linh... trên Pay VnExpress. Pay VnExpress vừa bổ sung thêm dịch vụ mua vé xe online. Các bước thực hiện gồm: chọn tuyến đường, ngày giờ; chỗ ngồi; thanh toán trực tuyến bằng thẻ nội địa. Mọi thao tác nhanh chóng, thuận tiện, mang đến trải nghiệm mới so với việc mua vé theo cách thức truyền thống. Click1BUS là sản phẩm đầu tiên trong chuỗi dịch vụ của click1VIETNAM – thương hiệu của Công ty TNHH SiGlaz Việt Nam. Đây là ứng dụng trên nền điện toán đám mây Google Cloud quản lý điều hành toàn diện dành cho các hãng vận tải. Hệ thống tích hợp đầy đủ các giải pháp cho việc quản lý đặt, mua vé trực tuyến và thanh toán điện tử. Click1BUS kết nối với các hãng vận tải hành khách uy tín và chất lượng hàng đầu trên thị trường. Người dùng đăng nhập tài khoản VnExpress là có thể trải nghiệm nhiều tiện ích từ dịch vụ này. Sau khi đăng ký tài khoản, người dùng còn được kết nối tới hệ thống quà tặng trực tuyến. Khách hàng hoàn toàn chọn ghế ngồi tại các hãng vận tải hành khách uy tín trên cả nước thông qua Pay VnExpress. Từ ngày 21/3 đến 11/4, độc giả truy cập vào trang quà tặng trực tuyến và đăng ký nhận mã quà tặng trực tuyến eGift (mỗi người chỉ được một mã và mỗi mã chỉ áp dụng cho một vé một chiều thuộc các tuyến được khuyến mại). Sau đó khách hàng truy cập vào Pay VnExpress lựa chọn chuyến xe để mua và nhập mã quà tặng trực tuyến eGift VnExpress để được giảm ngay 50% giá vé. Pay VnExpress ra đời nhằm mục đích mang đến kênh chi trả online thuận lợi và nhanh chóng cho người dùng. Hiện dịch vụ gồm nạp thẻ điện thoại, thẻ game, thanh toán phí bảo hiểm, cước điện thoại cố định, di động trả sau, thanh toán hóa đơn ADSL, truyền hình, mở thẻ Visa trả trước, thẻ du lịch trả trước Citipass và sẽ tiếp tục phát triển thêm nhiều dịch vụ mới thời gian tới. Điều này góp phần thúc đẩy sự phát triển của các phương thức thanh toán không sử dụng tiền mặt tại Việt Nam. Các hãng dịch vụ vận tải liên kết gồm: Mai Linh Express, Sapa Shuttlebus, Sơn Nguyên, Hanhcafe, EcoSapa, Vũ Linh... Thông qua sự hợp tác với các doanh nghiệp lớn như FPT Telecom, FPT Trading, Golden Gate Group, Hello Mam, trang sức ngọc trai Eropi, các thẩm mỹ viện danh tiếng… Pay VnExpress mang lại cho độc giả những món quà tặng đa dạng cùng nhiều ưu đãi đi kèm. Nhằm đảm bảo an toàn và quyền lợi của người dùng, Pay VnExpress liên kết với công ty cung cấp dịch vụ thanh toán điện tử uy tín là Công ty cổ phần Thanh toán quốc gia Việt Nam (NAPAS). Đây là đơn vị có công nghệ bảo mật và nền tảng kỹ thuật hoàn chỉnh, đạt chứng nhận bảo mật trong, ngoài nước. Thanh Thư\tKINHDOANH_VNEXPRESS";
+        RawLog rawLog = new RawLog(line);
+        rawLog.wordSegment();
+        System.out.println(rawLog.getContentWordSegmented());
+        assertNotNull(rawLog);
+    }
+
+}

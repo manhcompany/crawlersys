@@ -1,17 +1,13 @@
-package reishi;
+package reishi.crawler;
 
 import junit.framework.TestCase;
-import reishi.crawler.Crawler;
-import reishi.crawler.CrawlerResult;
-import reishi.crawler.CrawlerResultWithContent;
-import reishi.crawler.VnExpressCrawler;
 
 /**
- *
+ * Created by manhtt on 25/03/2017.
  */
-public class VnExpressCrawlerTest extends TestCase {
+public class TheThaoVnExpressCrawlerTest extends TestCase {
     public void testCrawler() throws Exception {
-        Crawler crawler = new VnExpressCrawler("http://vnexpress.net/tin-tuc/the-gioi/malaysia-tuyen-bo-nhan-dang-kim-jong-nam-bang-adn-cua-con-3555778.html");
+        Crawler crawler = new TheThaoVnExpressCrawler("http://thethao.vnexpress.net/tin-tuc/cac-giai-khac/tay-ban-nha-dai-thang-tiep-tuc-cuoc-dua-song-ma-voi-italy-3560582.html");
         CrawlerResult result = crawler.crawler();
         for (String url : result.getUrls()) {
             System.out.println(url);

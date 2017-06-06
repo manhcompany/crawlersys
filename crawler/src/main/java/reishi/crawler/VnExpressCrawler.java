@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import reishi.cache.Cache;
 import reishi.cache.RedisCache;
+import reishi.messages.RedisBackupMessage;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,33 +15,48 @@ import java.util.*;
  *
  */
 public class VnExpressCrawler implements Crawler {
-    private static final String START = "http://kinhdoanh.vnexpress.net";
-    private static final String CONTAINS = "http://kinhdoanh.vnexpress.net";
-    private static final String NOT_CONTAINS = "http://kinhdoanh.vnexpress.net/tel:01292333555,http://kinhdoanh.vnexpress.net/tel:012388801238,http://vnexpress.net/Hon 600.000 m\\u00e1y Mac tr\\u00ean th? gi?i nhi?m malware,http://vnexpress.net/Zune mo+'i ta?i nha.c tu+` ?\\u00e0i FM,http://kenh14.vn,http://fica.vn,https://www.facebook.com/baodantridientu,http://duhoc.dantri.com.vn,http://www,https://www,#box_comment,javascript,www.facebook.com,https://eclick.vn,mailto:,google.com";
-
-    private static final String DIV_TITLE = "div.title_news";
-    private static final String DIV_SHORT_INTRO="h3.short_intro";
-    private static final String DIV_RELATIVE = "div.relative_new > ul > li > a";
-    private static final String DIV_DETAIL = "div.fck_detail";
-    private static final String DIV_DATE = "div.block_timer";
-    private static final String DIV_BREAKUMB = "ul.list_arrow_breakumb > li";
+    /**
+     * start
+     * contains
+     * not.contains
+     * div.title
+     * div.short.intro
+     * div.relative
+     * div.detail
+     * div.date
+     * div.breakumb
+     * domain
+     */
+    private Map<String, String> configMap;
 
     private Cache redisCache = new RedisCache();
 
-    private static final CrawlerConfig config = new CrawlerConfig(START, CONTAINS, NOT_CONTAINS);
+    private static CrawlerConfig config;
     private String url;
+    private String uuid;
     private Document doc;
 
-    public VnExpressCrawler() {
-
-    }
-
-    public VnExpressCrawler(String url) {
+    public VnExpressCrawler(String url, String start,
+                            String contains, String notContains, String divTitle,
+                            String divShortIntro, String divRelative, String divDetail,
+                            String divDate, String divBreakumb, CrawlerDomain domain) {
         this.url = url;
+        configMap = new HashMap<>();
+        configMap.put("start", start);
+        configMap.put("contains", contains);
+        configMap.put("not.contains", notContains);
+        configMap.put("div.title", divTitle);
+        configMap.put("div.short.intro", divShortIntro);
+        configMap.put("div.relative", divRelative);
+        configMap.put("div.detail", divDetail);
+        configMap.put("div.date", divDate);
+        configMap.put("div.breakumb", divBreakumb);
+        configMap.put("domain", domain.toString());
+        config = new CrawlerConfig(configMap.get("start"), configMap.get("contains"), configMap.get("not.contains"));
     }
 
     public Long getDateTime() {
-        Elements elements = doc.select(DIV_DATE);
+        Elements elements = doc.select(configMap.get("div.date"));
         String raw = elements.get(1).text();
         System.out.println(raw);
         String[] rawSplit = raw.split("\\|");
@@ -64,12 +80,12 @@ public class VnExpressCrawler implements Crawler {
     }
 
     public String getTitle() {
-        Elements titles = doc.select(DIV_TITLE);
+        Elements titles = doc.select(configMap.get("div.title"));
         return titles.get(0).text();
     }
 
     public String getContent() {
-        Elements elements = doc.select(DIV_DETAIL);
+        Elements elements = doc.select(configMap.get("div.detail"));
         return elements.get(0).text();
     }
 
@@ -87,9 +103,10 @@ public class VnExpressCrawler implements Crawler {
                 crawlerResultWithContent.setRelative(getRelative());
                 crawlerResultWithContent.setDateTime(getDateTime());
                 crawlerResultWithContent.setCategories(getCategories());
-                String uuid = UUID.randomUUID().toString();
+                uuid = UUID.randomUUID().toString();
                 crawlerResultWithContent.setUuid(uuid);
                 crawlerResultWithContent.setUrl(this.url);
+                crawlerResultWithContent.setDomain((Enum.valueOf(CrawlerDomain.class, configMap.get("domain"))));
                 cacheUrl(uuid);
                 return crawlerResultWithContent;
             } catch (Exception e) {
@@ -100,7 +117,7 @@ public class VnExpressCrawler implements Crawler {
         else {
             CrawlerResultWithoutContent crawlerResultWithoutContent = new CrawlerResultWithoutContent();
             crawlerResultWithoutContent.setUrls(urls);
-            String uuid = UUID.randomUUID().toString();
+            uuid = UUID.randomUUID().toString();
             cacheUrl(uuid);
             return crawlerResultWithoutContent;
         }
@@ -109,7 +126,7 @@ public class VnExpressCrawler implements Crawler {
     @Override
     public List<String> getCategories() {
         List<String> result = new ArrayList<>();
-        Elements elements = doc.select(DIV_BREAKUMB);
+        Elements elements = doc.select(configMap.get("div.breakumb"));
         for (Element element : elements) {
             result.add(element.text());
         }
@@ -118,14 +135,14 @@ public class VnExpressCrawler implements Crawler {
 
     @Override
     public String getShortIntro() {
-        Elements intros = doc.select(DIV_SHORT_INTRO);
+        Elements intros = doc.select(configMap.get("div.short.intro"));
         return intros.text();
     }
 
     @Override
     public List<String> getRelative() {
         List<String> result = new ArrayList<>();
-        Elements elements = doc.select(DIV_RELATIVE);
+        Elements elements = doc.select(configMap.get("div.relative"));
         for (Element element : elements) {
             result.add(element.attr("href"));
         }
@@ -134,11 +151,16 @@ public class VnExpressCrawler implements Crawler {
 
     @Override
     public boolean isContentSite() {
-        Elements elements = doc.select(DIV_DETAIL);
-        if (elements.size() > 0) {
-            return true;
+        try {
+            Elements elements = doc.select(configMap.get("div.detail"));
+            if (elements.size() > 0) {
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -158,6 +180,15 @@ public class VnExpressCrawler implements Crawler {
         } else {
             redisCache.cacheUrl(url, uuid, 3600);
             redisCache.cacheUUID(uuid, url, 3600);
+        }
+    }
+
+    @Override
+    public RedisBackupMessage getCacheBackup() {
+        if(isContentSite()) {
+            return new RedisBackupMessage(this.url, this.uuid);
+        } else {
+            return null;
         }
     }
 }

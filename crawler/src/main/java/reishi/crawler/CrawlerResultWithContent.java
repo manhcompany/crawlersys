@@ -19,6 +19,15 @@ public class CrawlerResultWithContent implements KafkaMessage, FileContent, Craw
     private List<String> relative;
     private List<String> categories;
     private String uuid;
+    private CrawlerDomain domain;
+
+    public CrawlerDomain getDomain() {
+        return domain;
+    }
+
+    public void setDomain(CrawlerDomain domain) {
+        this.domain = domain;
+    }
 
     public String getUrl() {
         return url;
@@ -108,7 +117,7 @@ public class CrawlerResultWithContent implements KafkaMessage, FileContent, Craw
              categoriesString = String.join(",", categories);
         }
         try {
-            String result = String.format("%s\t%d\t%s\t%s\t%s\t%s\t%s", uuid, dateTime, title, shortIntro.replace("\t", " ").trim(), relativeString, categoriesString, content.replace("\n", " ").trim());
+            String result = String.format("%s\t%d\t%s\t%s\t%s\t%s\t%s\t%s\t%s", uuid, dateTime, domain.toString(), this.url, title, shortIntro.replace("\t", " ").trim(), relativeString, categoriesString, content.replace("\n", " ").trim());
             return result;
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,3 +11,4 @@ Field   |   Type    |   Mean
 4       |   String  |   Relationship url, separate by ','
 5       |   String  |   Categories, separate by ','
 6       |   String  |   Content
+7       |   String  |   Domain

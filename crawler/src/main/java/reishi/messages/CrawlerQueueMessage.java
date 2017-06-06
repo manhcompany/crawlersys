@@ -12,4 +12,6 @@ public interface CrawlerQueueMessage<T> {
     T crawler() throws IOException;
 
     CrawlerDomain getDomain();
+
+    RedisBackupMessage getCacheBackup();
 }

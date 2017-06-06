@@ -1,5 +1,7 @@
 package reishi.crawler;
 
+import reishi.messages.RedisBackupMessage;
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -19,4 +21,5 @@ public interface Crawler {
     boolean isContentSite();
     boolean isCrawled();
     void cacheUrl(String uuid);
+    RedisBackupMessage getCacheBackup();
 }

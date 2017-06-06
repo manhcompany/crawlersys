@@ -1,31 +1,41 @@
 package reishi.crawler;
 
+import org.jsoup.nodes.Document;
 import reishi.messages.RedisBackupMessage;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
 /**
  *
  */
-public class UnknowCrawler implements Crawler {
+public class NYTimesCrawler implements Crawler {
+    private Document doc;
+    private static CrawlerConfig config;
+
+    @Override
     public Long getDateTime() {
-        return null;
+        return 0L;
     }
 
+    @Override
     public HashSet<String> getUrls() {
         return null;
     }
 
+    @Override
     public String getTitle() {
         return null;
     }
 
+    @Override
     public String getContent() {
         return null;
     }
 
-    public CrawlerResultWithContent crawler() {
+    @Override
+    public CrawlerResult crawler() throws IOException {
         return null;
     }
 
